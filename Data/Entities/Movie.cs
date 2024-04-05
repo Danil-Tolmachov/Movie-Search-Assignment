@@ -12,6 +12,6 @@ namespace Data.Entities
 		public string Director { get; set; }
 		public DateTime ReleaseDate { get; set; }
 
-        public IEnumerable<MovieCategory> Categories { get; set; }
-    }
+        public IEnumerable<MovieCategory> Categories { get; set; } = new List<MovieCategory>();
+	}
 }
