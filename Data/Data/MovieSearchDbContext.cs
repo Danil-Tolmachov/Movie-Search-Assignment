@@ -23,9 +23,44 @@ namespace Data.Data
                       .ValueGeneratedOnAdd();
             });
 
-            // TODO: Configure other entities
+			modelBuilder.Entity<Movie>(entity =>
+			{
+				entity.Property(e => e.Title)
+					  .HasColumnType("varchar(200)")
+					  .HasColumnName("name");
 
-            base.OnModelCreating(modelBuilder);
+				entity.Property(e => e.Director)
+					  .HasColumnType("varchar(200)")
+					  .HasColumnName("director");
+
+				entity.Property(e => e.ReleaseDate)
+					  .HasColumnName("release");
+			});
+
+			modelBuilder.Entity<Category>(entity =>
+			{
+				entity.Property(e => e.Title)
+					  .HasColumnType("varchar(200)")
+					  .HasColumnName("name");
+
+				entity.Property(e => e.ParentCategoryId)
+					  .HasColumnName("parent_category_id");
+			});
+
+			modelBuilder.Entity<MovieCategory>(entity =>
+			{
+				entity.HasKey(e => new { e.MovieId, e.CategoryId });
+
+                entity.Property(e => e.MovieId)
+				      .HasColumnType("varchar(200)")
+					  .HasColumnName("film_id");
+
+				entity.Property(e => e.CategoryId)
+                      .HasColumnType("varchar(200)")
+					  .HasColumnName("category_id");
+			});
+
+			base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Data.Data
 		{
             get
             {
-                if (this.movieRepository == null)
+				if (this.movieRepository == null)
                 {
                     this.movieRepository = new MovieRepository(this._context);
                 }
