@@ -35,6 +35,11 @@ namespace Data.Data
 
 				entity.Property(e => e.ReleaseDate)
 					  .HasColumnName("release");
+
+
+				entity.HasMany(e => e.Categories)
+					  .WithOne(e => e.Movie)
+					  .HasForeignKey(e => e.MovieId);
 			});
 
 			modelBuilder.Entity<Category>(entity =>
@@ -45,19 +50,37 @@ namespace Data.Data
 
 				entity.Property(e => e.ParentCategoryId)
 					  .HasColumnName("parent_category_id");
+
+
+				entity.HasOne(e => e.ParentCategory)
+					  .WithMany()
+					  .HasForeignKey(e => e.ParentCategoryId);
+
+				entity.HasMany(e => e.Movies)
+					  .WithOne(e => e.Category)
+					  .HasForeignKey(e => e.CategoryId);
 			});
 
 			modelBuilder.Entity<MovieCategory>(entity =>
 			{
 				entity.HasKey(e => new { e.MovieId, e.CategoryId });
 
-                entity.Property(e => e.MovieId)
-				      .HasColumnType("varchar(200)")
+				entity.Property(e => e.MovieId)
+					  .HasColumnType("varchar(200)")
 					  .HasColumnName("film_id");
 
 				entity.Property(e => e.CategoryId)
-                      .HasColumnType("varchar(200)")
+					  .HasColumnType("varchar(200)")
 					  .HasColumnName("category_id");
+
+
+				entity.HasOne(e => e.Movie)
+					  .WithMany(m => m.Categories)
+					  .HasForeignKey(e => e.MovieId);
+
+				entity.HasOne(e => e.Category)
+					  .WithMany(m => m.Movies)
+					  .HasForeignKey(e => e.CategoryId);
 			});
 
 			base.OnModelCreating(modelBuilder);

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
@@ -8,5 +9,8 @@ namespace Data.Entities
     {
         public string Title { get; set; }
 		public int? ParentCategoryId { get; set; }
+
+        public Category ParentCategory { get; set; }
+        public IEnumerable<MovieCategory> Movies { get; set; }
     }
 }
