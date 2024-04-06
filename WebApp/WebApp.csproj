@@ -9,4 +9,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.27" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Movie\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\Data\Data.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿
+using AutoMapper;
+using Business;
+using Business.Interfaces;
+using Business.Services;
+using Data.Data;
+using Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp
 {
@@ -13,11 +20,24 @@ namespace WebApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+			services.AddMvc();
+			services.AddControllers();
 			services.AddRazorPages()
 				    .AddRazorRuntimeCompilation();
+
+			services.AddDbContext<MovieSearchDbContext>(options => 
+				options.UseInMemoryDatabase(Guid.NewGuid().ToString())
+				       .EnableSensitiveDataLogging(), 
+						   ServiceLifetime.Singleton);
+
+			services.AddSingleton<IMapper>(AutoMapperProfile.CreateMapper());
+
+			services.AddTransient<IUnitOfWork, UnitOfWork>();
+			services.AddTransient<ICategoryService, CategoryService>();
+			services.AddTransient<IMovieService, MovieService>();
 		}
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MovieSearchDbContext context)
         {
 			// Configure the HTTP request pipeline.
 			if (!env.IsDevelopment())
@@ -25,6 +45,12 @@ namespace WebApp
 				app.UseExceptionHandler("/Error");
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
+			}
+			else
+			{
+				context.Database.EnsureCreated();
+
+				app.UseDeveloperExceptionPage();
 			}
 
 			app.UseHttpsRedirection();
@@ -35,7 +61,7 @@ namespace WebApp
 			app.UseAuthorization();
 
 			app.UseEndpoints(e =>
-				e.MapRazorPages());
+				e.MapControllers());
 		}
     }
 }

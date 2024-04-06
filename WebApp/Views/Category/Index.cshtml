@@ -1,0 +1,48 @@
+﻿@model WebApp.Models.CategoryIndexModel
+@{
+}
+
+<div class="content">
+	<table class="category-table">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Movies count:</th>
+				<th>Nested level:</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var category in @Model.Categories)
+			{
+			<tr>
+				<td>
+					@category.Title
+				</td>
+				<td>
+					@category.Movies.Count()
+				</td>
+				<td>
+					@{
+						int nestedLevel = 0;
+						var currentCategory = category;
+						
+						while (true){
+						
+							if (currentCategory.ParentCategory is null) break;
+						
+							currentCategory = currentCategory.ParentCategory;
+							nestedLevel++;
+						}
+					}
+					@nestedLevel
+				</td>
+				<td>
+					<a asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@category.Id">Edit</a>
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+	
+</div>

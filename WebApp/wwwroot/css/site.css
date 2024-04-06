@@ -20,3 +20,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.content {
+    margin: auto;
+    width: 700px;
+}
+
+.category-table {
+    width: 100%;
+}
+
+.category-table th {
+    width: 25%;
+}
+
+.category-table tr {
+    width: 25%;
+    border-bottom: solid 1px gray;
+}
+
+.category-table tr:last-child {
+    width: 25%;
+    border-bottom: none;
+}

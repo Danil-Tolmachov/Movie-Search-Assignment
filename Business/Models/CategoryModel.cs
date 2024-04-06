@@ -11,7 +11,7 @@ namespace Business.Models
 		public int Id { get; set; }
 		public string Title { get; set; } = string.Empty;
 
-		public CategoryModel ParentCategory { get; set; } = null!;
+		public CategoryModel? ParentCategory { get; set; }
 		public IEnumerable<MovieModel> Movies { get; set; } = new List<MovieModel>();
 	}
 }
