@@ -5,8 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Data.Entities
 {
 	[Table("film_categories")]
-	public class MovieCategory : BaseEntity
+	public class MovieCategory
 	{
+		public int Id { get; set; }
+
 		public int MovieId { get; set; }
 		public Movie Movie { get; set; }
 

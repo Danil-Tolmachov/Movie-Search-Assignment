@@ -7,7 +7,11 @@ namespace Data.Entities
     [Table("categories")]
     public class Category : BaseEntity
     {
-        public string Title { get; set; }
+		public Category(int id) : base(id)
+		{
+		}
+
+		public string Title { get; set; }
 		public int? ParentCategoryId { get; set; }
 
         public Category ParentCategory { get; set; }

@@ -8,7 +8,11 @@ namespace Data.Entities
     [Table("films")]
     public class Movie : BaseEntity
     {
-        public string Title { get; set; }
+		public Movie(int id) : base(id)
+		{
+		}
+
+		public string Title { get; set; }
 		public string Director { get; set; }
 		public DateTime ReleaseDate { get; set; }
 

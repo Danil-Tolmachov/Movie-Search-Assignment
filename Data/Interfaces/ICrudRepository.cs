@@ -4,7 +4,7 @@ using Data.Entities;
 
 namespace Data.Interfaces
 {
-    public interface ICrudRepository<TEntity> where TEntity : BaseEntity
+    public interface ICrudRepository<TEntity> where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<IEnumerable<TEntity>> GetAllAsync(int pageNumber, int rowCount);

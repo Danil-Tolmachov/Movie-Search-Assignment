@@ -15,16 +15,14 @@ namespace Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BaseEntity>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Id)
-                      .ValueGeneratedOnAdd();
-            });
-
 			modelBuilder.Entity<Movie>(entity =>
 			{
+				entity.Property(e => e.Id)
+					  .ValueGeneratedOnAdd();
+
+				entity.HasKey(e => e.Id);
+
+
 				entity.Property(e => e.Title)
 					  .HasColumnType("varchar(200)")
 					  .HasColumnName("name");
@@ -44,6 +42,12 @@ namespace Data.Data
 
 			modelBuilder.Entity<Category>(entity =>
 			{
+				entity.Property(e => e.Id)
+					  .ValueGeneratedOnAdd();
+
+				entity.HasKey(e => e.Id);
+
+
 				entity.Property(e => e.Title)
 					  .HasColumnType("varchar(200)")
 					  .HasColumnName("name");
@@ -63,6 +67,12 @@ namespace Data.Data
 
 			modelBuilder.Entity<MovieCategory>(entity =>
 			{
+				entity.Property(e => e.Id)
+					  .ValueGeneratedOnAdd();
+
+				entity.HasKey(e => e.Id);
+
+
 				entity.HasKey(e => new { e.MovieId, e.CategoryId });
 
 				entity.Property(e => e.MovieId)
@@ -84,6 +94,11 @@ namespace Data.Data
 					  .HasForeignKey(e => e.CategoryId)
 					  .OnDelete(DeleteBehavior.Cascade);
 			});
+
+            // Seed Data
+            modelBuilder.Entity<Movie>().HasData(SeedData.GetMovies());
+            modelBuilder.Entity<Category>().HasData(SeedData.GetCategories());
+			modelBuilder.Entity<MovieCategory>().HasData(SeedData.GetMovieCategory());
 
 			base.OnModelCreating(modelBuilder);
         }

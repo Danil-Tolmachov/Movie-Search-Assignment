@@ -2,7 +2,7 @@
 using Data.Entities;
 using Data.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using StoreDAL.Repositories;
+using Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

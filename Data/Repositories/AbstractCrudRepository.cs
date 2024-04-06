@@ -7,7 +7,7 @@ using Data.Entities;
 using Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace StoreDAL.Repositories
+namespace Data.Repositories
 {
     public abstract class AbstractCrudRepository<TEntity> : ICrudRepository<TEntity> where TEntity : BaseEntity
     {
