@@ -1,48 +1,85 @@
-﻿using Business.Interfaces;
+﻿using AutoMapper;
+using Business.Interfaces;
 using Business.Models;
+using Data.Entities;
+using Data.Interfaces;
 
 namespace Business.Services
 {
 	public class MovieService : IMovieService
 	{
-		public Task Add(MovieModel model)
+		private readonly IUnitOfWork _unitOfWork;
+		private readonly IMapper _mapper;
+
+		public MovieService(IUnitOfWork unitOfWork, IMapper mapper)
 		{
-			throw new NotImplementedException();
+			_unitOfWork = unitOfWork;
+			_mapper = mapper;
 		}
 
-		public Task<int> Count()
+		public async Task AddCategory(int movieId, int categoryId)
 		{
-			throw new NotImplementedException();
+			await _unitOfWork.MovieCategoryRepository.AddAsync(movieId, categoryId);
+			await _unitOfWork.SaveAsync();
 		}
 
-		public void Delete(MovieModel model)
+		public async Task RemoveCategory(int movieId, int categoryId)
 		{
-			throw new NotImplementedException();
+			await _unitOfWork.MovieCategoryRepository.DeleteAsync(movieId, categoryId);
+			await _unitOfWork.SaveAsync();
 		}
 
-		public Task DeleteById(long id)
+		public async Task Add(MovieModel model)
 		{
-			throw new NotImplementedException();
+			var entity = _mapper.Map<Movie>(model);
+
+			await _unitOfWork.MovieRepository.AddAsync(entity);
+			await _unitOfWork.SaveAsync();
 		}
 
-		public Task<IEnumerable<MovieModel>> GetAll()
+		public async Task<int> Count()
 		{
-			throw new NotImplementedException();
+			return await _unitOfWork.MovieRepository.CountAsync();
 		}
 
-		public Task<IEnumerable<MovieModel>> GetAll(int pageNumber, int rowCount)
+		public async Task Delete(MovieModel model)
 		{
-			throw new NotImplementedException();
+			var entity = _mapper.Map<Movie>(model);
+			_unitOfWork.MovieRepository.Delete(entity);
+
+			await _unitOfWork.SaveAsync();
 		}
 
-		public Task<MovieModel> GetById(long id)
+		public async Task DeleteById(int id)
 		{
-			throw new NotImplementedException();
+			await _unitOfWork.MovieRepository.DeleteByIdAsync(id);
+			await _unitOfWork.SaveAsync();
 		}
 
-		public void Update(MovieModel model)
+		public async Task<IEnumerable<MovieModel>> GetAll()
 		{
-			throw new NotImplementedException();
+			var entities = await _unitOfWork.MovieRepository.GetAllAsync();
+			return _mapper.Map<IList<MovieModel>>(entities);
+		}
+
+		public async Task<IEnumerable<MovieModel>> GetAll(int pageNumber, int rowCount)
+		{
+			var entities = await _unitOfWork.MovieRepository.GetAllAsync(pageNumber, rowCount);
+			return _mapper.Map<IList<MovieModel>>(entities);
+		}
+
+		public async Task<MovieModel> GetById(int id)
+		{
+			var entity = await _unitOfWork.MovieRepository.GetByIdAsync(id);
+			return _mapper.Map<MovieModel>(entity);
+		}
+
+		public async Task Update(MovieModel model)
+		{
+			var entity = _mapper.Map<Movie>(model);
+
+			await _unitOfWork.MovieRepository.UpdateAsync(entity);
+			await _unitOfWork.SaveAsync();
 		}
 	}
 }
