@@ -76,11 +76,13 @@ namespace Data.Data
 
 				entity.HasOne(e => e.Movie)
 					  .WithMany(m => m.Categories)
-					  .HasForeignKey(e => e.MovieId);
+					  .HasForeignKey(e => e.MovieId)
+					  .OnDelete(DeleteBehavior.Cascade);
 
 				entity.HasOne(e => e.Category)
 					  .WithMany(m => m.Movies)
-					  .HasForeignKey(e => e.CategoryId);
+					  .HasForeignKey(e => e.CategoryId)
+					  .OnDelete(DeleteBehavior.Cascade);
 			});
 
 			base.OnModelCreating(modelBuilder);
