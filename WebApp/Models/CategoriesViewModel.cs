@@ -4,7 +4,7 @@ using Data.Data;
 
 namespace WebApp.Models
 {
-	public class CategoryIndexModel
+	public class CategoriesViewModel
 	{
 		public IEnumerable<CategoryModel> Categories { get; set; } = null!;
 

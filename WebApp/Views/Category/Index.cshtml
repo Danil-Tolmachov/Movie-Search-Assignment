@@ -1,8 +1,11 @@
-﻿@model WebApp.Models.CategoryIndexModel
+﻿@model WebApp.Models.CategoriesViewModel
 @{
 }
 
 <div class="content">
+	<h1 class="text-center">Categories</h1>
+	<a class="btn btn-success mt-3 mb-3" asp-action="AddCategory">Add Category</a>
+
 	<table class="category-table">
 		<thead>
 			<tr>
@@ -37,8 +40,8 @@
 					}
 					@nestedLevel
 				</td>
-				<td>
-					<a asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@category.Id">Edit</a>
+				<td class="button-cell">
+					<a class="edit-button btn btn-secondary" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@category.Id">Edit</a>
 				</td>
 			</tr>
 			}

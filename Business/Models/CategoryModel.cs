@@ -10,6 +10,7 @@ namespace Business.Models
 	{
 		public int Id { get; set; }
 		public string Title { get; set; } = string.Empty;
+		public int ParentCategoryId { get; set; }
 
 		public CategoryModel? ParentCategory { get; set; }
 		public IEnumerable<MovieModel> Movies { get; set; } = new List<MovieModel>();

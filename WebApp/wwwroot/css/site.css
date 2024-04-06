@@ -26,6 +26,18 @@ body {
     width: 700px;
 }
 
+.content form {
+    display: flex;
+    flex-direction: column;
+
+    width: 200px;
+    margin: auto;
+}
+
+.content form > * {
+    margin-bottom: 10px;
+}
+
 .category-table {
     width: 100%;
 }
@@ -36,10 +48,19 @@ body {
 
 .category-table tr {
     width: 25%;
-    border-bottom: solid 1px gray;
+    padding-top: 10px;
+    border-bottom: solid 1px lightgray;
 }
 
 .category-table tr:last-child {
     width: 25%;
     border-bottom: none;
+}
+
+.edit-button {
+    width: 60px;
+}
+
+.button-cell {
+    padding: 10px;
 }

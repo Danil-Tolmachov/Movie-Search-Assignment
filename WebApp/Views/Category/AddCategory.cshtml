@@ -1,0 +1,24 @@
+﻿@model Business.Models.CategoryModel
+@{
+}
+
+<div class="content">
+	<form asp-action="AddCategory" method="post">
+		<div class="form-group">
+			<label asp-for="Title">Title: </label>
+			<input class="form-control" id="title"type="text" asp-for="Title"/>
+		</div>
+
+		<div class="form-group">
+			<label asp-for="ParentCategoryId">Parent category: </label>
+			<select class="form-select" asp-for="ParentCategoryId">
+				@foreach (var category in ViewBag.Categories)
+				{
+					<option value="@category.Id">@category.Title</option>
+				}
+			</select>
+		</div>
+
+		<button class="btn btn-primary" type="submit" asp-controller="Category" asp-action="AddCategoryPost">Submit</button>
+	</form>
+</div>
