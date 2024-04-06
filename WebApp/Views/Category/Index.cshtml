@@ -41,7 +41,8 @@
 					@nestedLevel
 				</td>
 				<td class="button-cell">
-					<a class="edit-button btn btn-secondary" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@category.Id">Edit</a>
+					<a class="btn btn-secondary" asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@category.Id">Edit</a>
+					<a class="btn btn-danger" asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@category.Id">Delete</a>
 				</td>
 			</tr>
 			}

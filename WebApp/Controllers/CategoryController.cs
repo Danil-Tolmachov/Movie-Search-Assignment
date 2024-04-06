@@ -65,5 +65,13 @@ namespace WebApp.Controllers
 
 			return BadRequest();
 		}
+
+		[HttpGet]
+		[Route("delete/{id}")]
+		public IActionResult DeleteCategory(int id)
+		{
+			_categoryService.DeleteById(id);
+			return RedirectToAction("Index");
+		}
 	}
 }
