@@ -109,9 +109,12 @@ namespace Data.Repositories
             await context.SaveChangesAsync();
         }
 
-		Task ICrudRepository<TEntity>.UpdateAsync(TEntity entity)
+		public virtual async Task UpdateAsync(TEntity entity)
 		{
-			throw new NotImplementedException();
+            TEntity existingEntity = await dbSet.SingleAsync(e => e.Id == entity.Id);
+
+			context.Entry(existingEntity).CurrentValues.SetValues(entity);
+			dbSet.Update(existingEntity);
 		}
 	}
 }

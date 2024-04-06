@@ -25,23 +25,6 @@ namespace WebApp.Controllers
 			return View(viewModel);
 		}
 
-		[Route("update/{id}")]
-		public async Task<IActionResult> UpdateCategory(CategoryModel? model)
-		{
-			if (model is not null && ModelState.IsValid)
-			{
-				await _categoryService.Update(model);
-				return RedirectToAction("Index");
-			}
-
-			var categories = await _categoryService.GetAll();
-			var viewModel = new CategoriesViewModel();
-
-			viewModel.Categories = categories;
-
-			return View(viewModel);
-		}
-
 		[HttpGet]
 		[Route("add")]
 		public async Task<IActionResult> AddCategory()
@@ -72,6 +55,31 @@ namespace WebApp.Controllers
 		{
 			_categoryService.DeleteById(id);
 			return RedirectToAction("Index");
+		}
+
+		[HttpGet]
+		[Route("update/{id}")]
+		public async Task<IActionResult> UpdateCategory(int id)
+		{
+			var categories = await _categoryService.GetAll();
+			ViewBag.Categories = categories;
+
+			var model = await _categoryService.GetById(id);
+			return View(model);
+		}
+
+		[HttpPost]
+		[Route("update/{id}")]
+		public async Task<IActionResult> UpdateCategory(int id, [FromForm] CategoryModel model)
+		{
+			if (model is not null && ModelState.IsValid)
+			{
+				model.Id = id;
+				await _categoryService.Update(model);
+				return RedirectToAction("Index");
+			}
+
+			return BadRequest();
 		}
 	}
 }
