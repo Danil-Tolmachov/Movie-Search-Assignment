@@ -11,26 +11,26 @@
 			<tr>
 				<th>Title</th>
 				<th>Director:</th>
-				<th>ReleaseDate:</th>
+				<th>Categories:</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var category in @Model.Movies)
+			@foreach (var movie in @Model.Movies)
 			{
 			<tr>
 				<td>
-					@category.Title
+					@movie.Title
 				</td>
 				<td>
-					@category.Director
+					@movie.Director
 				</td>
 				<td>
-					@category.ReleaseDate
+					@string.Join(", ", movie.Categories.Select(c => c.Title))
 				</td>
 				<td class="button-cell">
-					<a class="btn btn-secondary" asp-controller="Movie" asp-action="UpdateMovie" asp-route-id="@category.Id">Edit</a>
-					<a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteMovie" asp-route-id="@category.Id">Delete</a>
+					<a class="btn btn-secondary" asp-controller="Movie" asp-action="UpdateMovie" asp-route-id="@movie.Id">Edit</a>
+					<a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteMovie" asp-route-id="@movie.Id">Delete</a>
 				</td>
 			</tr>
 			}

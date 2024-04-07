@@ -29,6 +29,7 @@ namespace Business
 				.ForMember(cm => cm.Title, c => c.MapFrom(x => x.Title))
 				.ForMember(cm => cm.ParentCategory, c => c.MapFrom(x => x.ParentCategory))
 				.ForMember(cm => cm.ParentCategoryId, c => c.MapFrom(x => x.ParentCategoryId))
+				.ForMember(cm => cm.ChildCategories, c => c.MapFrom(x => x.ChildCategories))
 				.ForMember(cm => cm.Movies, c => c.MapFrom(x => x.Movies.Select(mc => mc.Movie)));
 
 			CreateMap<CategoryModel, Category>()

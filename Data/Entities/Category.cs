@@ -15,6 +15,7 @@ namespace Data.Entities
 		public int? ParentCategoryId { get; set; }
 
         public Category ParentCategory { get; set; }
-        public IEnumerable<MovieCategory> Movies { get; set; } = new List<MovieCategory>();
+		public IEnumerable<Category> ChildCategories { get; set; } = new List<Category>();
+		public IEnumerable<MovieCategory> Movies { get; set; } = new List<MovieCategory>();
 	}
 }

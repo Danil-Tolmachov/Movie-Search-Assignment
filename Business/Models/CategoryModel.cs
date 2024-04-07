@@ -13,6 +13,7 @@ namespace Business.Models
 		public int ParentCategoryId { get; set; }
 
 		public CategoryModel? ParentCategory { get; set; }
+		public IEnumerable<CategoryModel> ChildCategories { get; set; } = new List<CategoryModel>();
 		public IEnumerable<MovieModel> Movies { get; set; } = new List<MovieModel>();
 	}
 }

@@ -60,6 +60,10 @@ namespace Data.Data
 					  .WithMany()
 					  .HasForeignKey(e => e.ParentCategoryId);
 
+				entity.HasMany(e => e.ChildCategories)
+					  .WithOne(e => e.ParentCategory)
+					  .HasForeignKey(e => e.ParentCategoryId);
+
 				entity.HasMany(e => e.Movies)
 					  .WithOne(e => e.Category)
 					  .HasForeignKey(e => e.CategoryId);

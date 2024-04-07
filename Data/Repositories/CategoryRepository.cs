@@ -2,7 +2,6 @@
 using Data.Entities;
 using Data.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +20,7 @@ namespace Data.Repositories
 		{
 			return await this.dbSet.Include(e => e.Movies)
 								   .Include(e => e.ParentCategory)
+								   .Include(e => e.ChildCategories)
 								   .ToListAsync();
 		}
 
@@ -46,6 +46,7 @@ namespace Data.Repositories
 						      .Take(rowCount)
 						      .Include(e => e.Movies)
 							  .Include(e => e.ParentCategory)
+							  .Include(e => e.ChildCategories)
 							  .ToListAsync();
 		}
 
@@ -55,6 +56,7 @@ namespace Data.Repositories
 			{
 				return await this.dbSet.Include(e => e.Movies)
 									   .Include(e => e.ParentCategory)
+									   .Include(e => e.ChildCategories)
 									   .FirstAsync(e => e.Id == id);
 			}
 			catch (InvalidOperationException ex)
