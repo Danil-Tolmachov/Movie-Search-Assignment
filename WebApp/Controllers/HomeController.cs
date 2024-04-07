@@ -3,7 +3,7 @@
 namespace WebApp.Controllers
 {
 	[Route("/")]
-	[ApiController]
+	[Controller]
 	public class HomeController : Controller
 	{
 		public IActionResult Index()

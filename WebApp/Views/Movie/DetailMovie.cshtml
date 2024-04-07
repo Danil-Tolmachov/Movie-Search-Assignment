@@ -1,0 +1,42 @@
+﻿@model WebApp.Models.DetailMovieModel
+@{
+}
+
+<div class="content">
+	<div>
+		<b><label>Title: </label></b>
+		<p>@Model.Movie.Title</p>
+	</div>
+
+	<div>
+		<b><label>Director: </label></b>
+		<p>@Model.Movie.Director</p>
+	</div>
+
+	<div>
+		<b><label>Release Date: </label></b>
+		<p>@Model.Movie.ReleaseDate</p>
+	</div>
+
+	<div>
+		<h3 class="text-center">Categories: </h3>
+		<div class="d-sm-flex align-items-sm-center" style="height: 40px;">
+			<select class="category-select">
+				@foreach (var category in Model.AvailableCategories)
+				{
+					<option value="@category.Id">@category.Title</option>
+				}
+			</select>
+			<button class="btn btn-secondary">Add Category</button>
+		</div>
+		<div class="d-sm-flex flex-sm-column">
+			@foreach (var category in Model.Movie.Categories)
+			{
+				<div class="m-1">
+					<label>@category.Title: </label>
+					<input class="check" type="checkbox" value="@category.Id" checked/>
+				</div>
+			}
+		</div>
+	</div>
+</div>

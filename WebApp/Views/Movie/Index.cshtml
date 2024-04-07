@@ -6,7 +6,19 @@
 	<h1 class="text-center">Movies</h1>
 	<a class="btn btn-success mt-3 mb-3" asp-action="AddMovie">Add Movie</a>
 
-	<table class="category-table">
+	<div class="d-inline-block m-3">
+		<label for="category">Select a category to sort:</label>
+		<select id="categorySelector">
+			@foreach (var category in Model.Movies.SelectMany(m => m.Categories)
+													.DistinctBy(c => c.Id)
+													.OrderBy(c => c.Id))
+			{
+				<option value="@category.Title">@category.Title</option>
+			}
+		</select>
+	</div>
+
+	<table class="category-table" id="movieTable">
 		<thead>
 			<tr>
 				<th>Title</th>
@@ -20,7 +32,7 @@
 			{
 			<tr>
 				<td>
-					@movie.Title
+					<a asp-controller="Movie" asp-action="DetailMovie" asp-route-id="@movie.Id">@movie.Title</a>
 				</td>
 				<td>
 					@movie.Director

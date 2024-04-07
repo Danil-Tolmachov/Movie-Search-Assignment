@@ -56,6 +56,14 @@ body {
     width: 25%;
     border-bottom: none;
 }
+
+.category-select {
+    height: 30px;
+    width: 120px;
+
+    margin-right: 10px;
+}
+
 .button-cell {
     padding: 10px;
 }

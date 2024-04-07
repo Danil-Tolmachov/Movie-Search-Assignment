@@ -6,7 +6,7 @@ using WebApp.Models;
 namespace WebApp.Controllers
 {
 	[Route("category")]
-	[ApiController]
+	[Controller]
 	public class CategoryController : Controller
 	{
 		public readonly ICategoryService _categoryService;

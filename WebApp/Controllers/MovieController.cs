@@ -1,19 +1,22 @@
 ﻿using Business.Interfaces;
 using Business.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	[ApiController]
+	[Controller]
 	[Route("movie")]
 	public class MovieController : Controller
 	{
 		public readonly IMovieService _movieService;
+		public readonly ICategoryService _categoryService;
 
-		public MovieController(IMovieService movieService)
+		public MovieController(IMovieService movieService, ICategoryService categoryService)
 		{
 			_movieService = movieService;
+			_categoryService = categoryService;
 		}
 
 		public async Task<IActionResult> Index()
@@ -74,6 +77,19 @@ namespace WebApp.Controllers
 			}
 
 			return BadRequest();
+		}
+
+		[Route("detail/{id}")]
+		public async Task<IActionResult> DetailMovie(int id)
+		{
+			var movie = await _movieService.GetById(id);
+			var availableCategories = await _categoryService.GetAll();
+
+			// Exclude already related categories
+			availableCategories = availableCategories.Where(c => !c.Movies.Any(m => m.Id == movie.Id));
+
+			var viewModel = new DetailMovieModel(movie, availableCategories);
+			return View("DetailMovie", viewModel);
 		}
 	}
 }
