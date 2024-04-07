@@ -1,0 +1,40 @@
+﻿@model WebApp.Models.MoviesViewModel
+@{
+}
+
+<div class="content">
+	<h1 class="text-center">Movies</h1>
+	<a class="btn btn-success mt-3 mb-3" asp-action="AddMovie">Add Movie</a>
+
+	<table class="category-table">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Director:</th>
+				<th>ReleaseDate:</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var category in @Model.Movies)
+			{
+			<tr>
+				<td>
+					@category.Title
+				</td>
+				<td>
+					@category.Director
+				</td>
+				<td>
+					@category.ReleaseDate
+				</td>
+				<td class="button-cell">
+					<a class="btn btn-secondary" asp-controller="Movie" asp-action="UpdateMovie" asp-route-id="@category.Id">Edit</a>
+					<a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteMovie" asp-route-id="@category.Id">Delete</a>
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+	
+</div>
