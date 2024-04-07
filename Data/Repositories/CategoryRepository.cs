@@ -19,6 +19,7 @@ namespace Data.Repositories
 		public override async Task<IEnumerable<Category>> GetAllAsync()
 		{
 			return await this.dbSet.Include(e => e.Movies)
+								   .ThenInclude(e => e.Movie)
 								   .Include(e => e.ParentCategory)
 								   .Include(e => e.ChildCategories)
 								   .ToListAsync();
@@ -45,6 +46,7 @@ namespace Data.Repositories
 			return await dbSet.Skip(entitiesToSkip)
 						      .Take(rowCount)
 						      .Include(e => e.Movies)
+							  .ThenInclude(e => e.Movie)
 							  .Include(e => e.ParentCategory)
 							  .Include(e => e.ChildCategories)
 							  .ToListAsync();
@@ -55,6 +57,7 @@ namespace Data.Repositories
 			try
 			{
 				return await this.dbSet.Include(e => e.Movies)
+					                   .ThenInclude(e => e.Movie)
 									   .Include(e => e.ParentCategory)
 									   .Include(e => e.ChildCategories)
 									   .FirstAsync(e => e.Id == id);

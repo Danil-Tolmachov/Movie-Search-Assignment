@@ -32,8 +32,8 @@ namespace WebApp.Controllers
 			return result;
 		}
 
-		[HttpGet]
-		[Route("{movieId}/category/{categoryId}/create")]
+		[HttpPost]
+		[Route("{movieId}/category/{categoryId}")]
 		public async Task<IActionResult> AddCategory(int movieId, int categoryId)
 		{
 			await _movieService.AddCategory(movieId, categoryId);
@@ -47,7 +47,7 @@ namespace WebApp.Controllers
 		{
 			await _movieService.RemoveCategory(movieId, categoryId);
 
-			return Ok();
+			return NoContent();
 		}
 	}
 }
