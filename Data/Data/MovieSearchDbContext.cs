@@ -17,12 +17,13 @@ namespace Data.Data
         {
 			modelBuilder.Entity<Movie>(entity =>
 			{
+				// Id
 				entity.Property(e => e.Id)
 					  .ValueGeneratedOnAdd();
 
 				entity.HasKey(e => e.Id);
 
-
+				// Column settings
 				entity.Property(e => e.Title)
 					  .HasColumnType("varchar(200)")
 					  .HasColumnName("name");
@@ -34,7 +35,7 @@ namespace Data.Data
 				entity.Property(e => e.ReleaseDate)
 					  .HasColumnName("release");
 
-
+				// Navigation properties
 				entity.HasMany(e => e.Categories)
 					  .WithOne(e => e.Movie)
 					  .HasForeignKey(e => e.MovieId);
@@ -42,12 +43,13 @@ namespace Data.Data
 
 			modelBuilder.Entity<Category>(entity =>
 			{
+				// Id
 				entity.Property(e => e.Id)
 					  .ValueGeneratedOnAdd();
 
 				entity.HasKey(e => e.Id);
 
-
+				// Column settings
 				entity.Property(e => e.Title)
 					  .HasColumnType("varchar(200)")
 					  .HasColumnName("name");
@@ -55,7 +57,7 @@ namespace Data.Data
 				entity.Property(e => e.ParentCategoryId)
 					  .HasColumnName("parent_category_id");
 
-
+				// Navigation properties
 				entity.HasOne(e => e.ParentCategory)
 					  .WithMany()
 					  .HasForeignKey(e => e.ParentCategoryId);
@@ -71,14 +73,16 @@ namespace Data.Data
 
 			modelBuilder.Entity<MovieCategory>(entity =>
 			{
+				// Id
 				entity.Property(e => e.Id)
 					  .ValueGeneratedOnAdd();
 
 				entity.HasKey(e => e.Id);
 
-
+				// Composite keys
 				entity.HasKey(e => new { e.MovieId, e.CategoryId });
 
+				// Column settings
 				entity.Property(e => e.MovieId)
 					  .HasColumnType("varchar(200)")
 					  .HasColumnName("film_id");
@@ -87,7 +91,7 @@ namespace Data.Data
 					  .HasColumnType("varchar(200)")
 					  .HasColumnName("category_id");
 
-
+				// Navigation properties
 				entity.HasOne(e => e.Movie)
 					  .WithMany(m => m.Categories)
 					  .HasForeignKey(e => e.MovieId)

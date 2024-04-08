@@ -20,6 +20,7 @@ $(document).ready(function () {
 			checkedIds.push($(this).val())
 		});
 
+		// Send request
 		movieCategoryService.addCategoryToMovie(movieId, checkedIds)
 			.catch(error => {
 				console.error('Failed to add category to movie:', error);
@@ -46,6 +47,7 @@ class MovieCategoryService
 
 		try
 		{
+			// Send request
 			const response = await fetch(url, {
 				method: 'POST',
 				body: formData,
@@ -69,6 +71,7 @@ class MovieCategoryService
 
 		try
 		{
+			// Send request
 			const response = await fetch(url, {
 				method: 'DELETE',
             });

@@ -25,12 +25,15 @@ namespace WebApp
 			services.AddRazorPages()
 				    .AddRazorRuntimeCompilation();
 
+			// Add db context
 			services.AddDbContext<MovieSearchDbContext>(options => 
 				options.UseInMemoryDatabase(Guid.NewGuid().ToString()),
 						   ServiceLifetime.Singleton);
 
+			// Add mapper
 			services.AddSingleton<IMapper>(AutoMapperProfile.CreateMapper());
 
+			// Add unit of work
 			services.AddTransient<IUnitOfWork, UnitOfWork>();
 			services.AddTransient<ICategoryService, CategoryService>();
 			services.AddTransient<IMovieService, MovieService>();
