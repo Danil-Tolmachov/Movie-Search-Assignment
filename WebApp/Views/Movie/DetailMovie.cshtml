@@ -20,23 +20,22 @@
 
 	<div>
 		<h3 class="text-center">Categories: </h3>
-		<div class="d-sm-flex align-items-sm-center" style="height: 40px;">
-			<select class="category-select" id="categorySelector">
-				@foreach (var category in Model.AvailableCategories)
-				{
-					<option value="@category.Id">@category.Title</option>
-				}
-			</select>
-			<button class="btn btn-secondary" id="addCategoryButton">Add Category</button>
-		</div>
 		<div class="d-sm-flex flex-sm-column" id="movieCategoriesContainer">
 			@foreach (var category in Model.Movie.Categories)
 			{
 				<div class="m-1 form-check" id="@category.Id">
-					<input class="check form-check-input" type="checkbox" value="@category.Id" checked/>
+					<input class="check form-check-input" type="checkbox" name="category" value="@category.Id" checked/>
 					<label class="form-check-label">@category.Title</label>
 				</div>
 			}
+			@foreach (var category in Model.AvailableCategories)
+			{
+				<div class="m-1 form-check" id="@category.Id">
+					<input class="check form-check-input" type="checkbox" name="category" value="@category.Id"/>
+					<label class="form-check-label">@category.Title</label>
+				</div>
+			}
+			<button class="btn btn-success m-3 mx-auto" style="width: 120px;" id="confirmCategoryButton">Confirm</button>
 		</div>
 	</div>
 </div>

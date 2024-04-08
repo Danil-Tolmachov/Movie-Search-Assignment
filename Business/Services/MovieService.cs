@@ -29,6 +29,12 @@ namespace Business.Services
 			await _unitOfWork.SaveAsync();
 		}
 
+		public async Task ClearCategories(int movieId)
+		{
+			await _unitOfWork.MovieCategoryRepository.ClearMovieCategoriesAsync(movieId);
+			await _unitOfWork.SaveAsync();
+		}
+
 		public async Task Add(MovieModel model)
 		{
 			var entity = _mapper.Map<Movie>(model);

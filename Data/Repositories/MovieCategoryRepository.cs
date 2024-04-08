@@ -2,6 +2,8 @@
 using Data.Entities;
 using Data.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Data.Repositories
@@ -33,6 +35,13 @@ namespace Data.Repositories
 			MovieCategory entity = await dbSet.FindAsync(movieId, categoryId);
 
 			dbSet.Remove(entity);
+		}
+
+		public async Task ClearMovieCategoriesAsync(int movieId)
+		{
+			IEnumerable<MovieCategory> entities = await dbSet.Where(e => e.MovieId == movieId).ToListAsync();
+
+			dbSet.RemoveRange(entities);
 		}
 	}
 }

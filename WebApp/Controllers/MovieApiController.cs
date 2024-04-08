@@ -33,11 +33,25 @@ namespace WebApp.Controllers
 		}
 
 		[HttpPost]
+		[Route("{movieId}/category/")]
+		public async Task<IActionResult> AddCategories(int movieId, [FromForm] IEnumerable<int> ids)
+		{
+			await _movieService.ClearCategories(movieId);
+
+			foreach (var id in ids)
+			{
+				await _movieService.AddCategory(movieId, id);
+			}
+
+			return Ok();
+		}
+
+		[HttpPost]
 		[Route("{movieId}/category/{categoryId}")]
 		public async Task<IActionResult> AddCategory(int movieId, int categoryId)
 		{
 			await _movieService.AddCategory(movieId, categoryId);
-
+		
 			return Ok();
 		}
 

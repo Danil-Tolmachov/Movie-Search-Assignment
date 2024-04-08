@@ -26,8 +26,7 @@ namespace WebApp
 				    .AddRazorRuntimeCompilation();
 
 			services.AddDbContext<MovieSearchDbContext>(options => 
-				options.UseInMemoryDatabase(Guid.NewGuid().ToString())
-				       .EnableSensitiveDataLogging(), 
+				options.UseInMemoryDatabase(Guid.NewGuid().ToString()),
 						   ServiceLifetime.Singleton);
 
 			services.AddSingleton<IMapper>(AutoMapperProfile.CreateMapper());

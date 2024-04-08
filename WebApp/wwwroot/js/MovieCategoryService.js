@@ -12,38 +12,20 @@ $(document).ready(function () {
     const parts = path.split('/');
     let movieId = parts[parts.length - 1];
 
-    // Add event listener to button "Add Category"
-    $('#addCategoryButton').click(function (event) {
-        let categorySelector = $('#categorySelector');
-        let categoryId = categorySelector.val();
-        let categoryTitle = $(`#categorySelector option[value=${categoryId}]`).text();
+	$('#confirmCategoryButton').click(function (event) {
+		let checkedIds = [];
 
-        console.log(categoryId);
-        console.log(categoryTitle);
+		// Add checked categories to array
+		$("input[type=checkbox]:checked").each(function () {
+			checkedIds.push($(this).val())
+		});
 
-        movieCategoryService.addCategoryToMovie(movieId, categoryId)
-            .then(data => {
-                movieCategoryService.addCategoryElement(categoryId, categoryTitle);
-            })
-            .catch(error => {
-                console.error('Failed to add category to movie:', error);
-                alert('Failed to add category to movie.');
-            });
-    });
-
-    // Add event listener to remove category when unchecked
-    $('#movieCategoriesContainer').find('.check').on('change', function (event) {
-        let categoryId = event.target.value;
-
-        movieCategoryService.removeCategoryFromMovie(movieId, categoryId)
-            .then(data => {
-                movieCategoryService.removeCategoryElement(categoryId);
-            })
-            .catch(error => {
-                console.error('Failed to remove category from movie:', error);
-                alert('Failed to remove category from movie.');
-            });
-    });
+		movieCategoryService.addCategoryToMovie(movieId, checkedIds)
+			.catch(error => {
+				console.error('Failed to add category to movie:', error);
+				alert('Failed to add category to movie.');
+			});
+	});
 });
 
 
@@ -55,14 +37,18 @@ class MovieCategoryService
 		this.baseUrl = baseUrl;
 	}
 
-	async addCategoryToMovie(movieId, categoryId)
+	async addCategoryToMovie(movieId, checkedIds)
 	{
-		let url = `${this.baseUrl}/api/movie/${movieId}/category/${categoryId}`;
+		const url = `${this.baseUrl}/api/movie/${movieId}/category/`;
+
+		let formData = new URLSearchParams();
+		checkedIds.forEach(id => formData.append('ids', id));
 
 		try
 		{
 			const response = await fetch(url, {
 				method: 'POST',
+				body: formData,
             });
 
 			if (!response.ok)

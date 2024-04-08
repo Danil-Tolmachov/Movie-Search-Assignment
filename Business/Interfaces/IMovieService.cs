@@ -6,5 +6,6 @@ namespace Business.Interfaces
 	{
 		Task AddCategory(int movieId, int categoryId);
 		Task RemoveCategory(int movieId, int categoryId);
+		Task ClearCategories(int movieId);
 	}
 }

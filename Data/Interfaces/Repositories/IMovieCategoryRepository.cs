@@ -8,5 +8,7 @@ namespace Data.Interfaces.Repositories
 		Task AddAsync(int movieId, int categoryId);
 		Task DeleteAsync(int movieId, int categoryId);
 
+		Task ClearMovieCategoriesAsync(int movieId);
+
 	}
 }
